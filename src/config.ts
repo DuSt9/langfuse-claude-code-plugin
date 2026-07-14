@@ -9,6 +9,7 @@ export interface Config {
   stateFilePath: string;
   debug: boolean;
   maxChars: number;
+  userId: string;
 }
 
 export function loadConfig(): Config {
@@ -28,5 +29,7 @@ export function loadConfig(): Config {
 
   const maxChars = parseInt(process.env.CC_LANGFUSE_MAX_CHARS ?? "50000", 10);
 
-  return { publicKey, secretKey, baseUrl, stateFilePath, debug, maxChars };
+  const userId = process.env.CC_LANGFUSE_USER_ID ?? process.env.LANGFUSE_USER_ID ?? "";
+
+  return { publicKey, secretKey, baseUrl, stateFilePath, debug, maxChars, userId };
 }

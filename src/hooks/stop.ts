@@ -139,6 +139,7 @@ async function main(): Promise<void> {
         transcriptName,
         traceId,
         toolStartTimes: isLastTurn ? sessionState.tool_start_times : undefined,
+        userId: config.userId,
       });
       tracedTurns++;
     } catch (err) {

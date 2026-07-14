@@ -109,6 +109,7 @@ async function main(): Promise<void> {
     id: traceId,
     name: `Claude Code - Turn ${turnNum}`,
     sessionId: input.session_id,
+    userId: config.userId || undefined,
     input: { role: "user", content: input.prompt },
     tags: ["claude-code"],
     metadata: {

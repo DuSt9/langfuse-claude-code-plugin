@@ -136,6 +136,8 @@ export interface EmitTurnOptions {
   traceId?: string;
   /** Tool start times from PreToolUse (tool_use_id -> wall-clock ms). */
   toolStartTimes?: Record<string, number>;
+  /** User ID for Langfuse trace attribution. */
+  userId?: string;
 }
 
 /**
@@ -162,6 +164,7 @@ export function emitTurn(options: EmitTurnOptions): string {
     id: traceId || randomUUID(),
     name: traceName,
     sessionId,
+    userId: options.userId || undefined,
     input: { role: "user", content: userText },
     output: { role: "assistant", content: finalText },
     tags: ["claude-code"],

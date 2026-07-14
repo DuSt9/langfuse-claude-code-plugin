@@ -4207,7 +4207,8 @@ function loadConfig() {
   const stateFilePath = process.env.STATE_FILE ?? `${homeDir}/.claude/state/langfuse_state.json`;
   const debug2 = (process.env.CC_LANGFUSE_DEBUG ?? "").toLowerCase() === "true";
   const maxChars = parseInt(process.env.CC_LANGFUSE_MAX_CHARS ?? "50000", 10);
-  return { publicKey, secretKey, baseUrl, stateFilePath, debug: debug2, maxChars };
+  const userId = process.env.CC_LANGFUSE_USER_ID ?? process.env.LANGFUSE_USER_ID ?? "";
+  return { publicKey, secretKey, baseUrl, stateFilePath, debug: debug2, maxChars, userId };
 }
 
 // dist/utils/hook-init.js

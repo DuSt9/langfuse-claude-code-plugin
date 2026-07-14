@@ -4432,6 +4432,7 @@ function emitTurn(options) {
     id: traceId || randomUUID(),
     name: traceName,
     sessionId,
+    userId: options.userId || void 0,
     input: { role: "user", content: userText },
     output: { role: "assistant", content: finalText },
     tags: ["claude-code"],
@@ -4647,7 +4648,8 @@ function loadConfig() {
   const stateFilePath = process.env.STATE_FILE ?? `${homeDir}/.claude/state/langfuse_state.json`;
   const debug2 = (process.env.CC_LANGFUSE_DEBUG ?? "").toLowerCase() === "true";
   const maxChars2 = parseInt(process.env.CC_LANGFUSE_MAX_CHARS ?? "50000", 10);
-  return { publicKey, secretKey, baseUrl, stateFilePath, debug: debug2, maxChars: maxChars2 };
+  const userId = process.env.CC_LANGFUSE_USER_ID ?? process.env.LANGFUSE_USER_ID ?? "";
+  return { publicKey, secretKey, baseUrl, stateFilePath, debug: debug2, maxChars: maxChars2, userId };
 }
 
 // dist/utils/hook-init.js
@@ -4752,6 +4754,7 @@ async function main() {
     id: traceId,
     name: `Claude Code - Turn ${turnNum}`,
     sessionId: input.session_id,
+    userId: config.userId || void 0,
     input: { role: "user", content: input.prompt },
     tags: ["claude-code"],
     metadata: {
